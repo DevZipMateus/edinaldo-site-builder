@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Instagram } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import heroImage from '@/assets/hero-fashion.jpg';
 
 const Hero = () => {
@@ -37,6 +38,16 @@ const Hero = () => {
               <a href="https://wa.me/5577988743588" target="_blank" rel="noopener noreferrer">
                 Entre em contato
               </a>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="border-primary/60 text-foreground hover:bg-primary/10 text-base"
+            >
+              <Link to="/vitrine" className="flex items-center gap-2">
+                Ver vitrine online
+              </Link>
             </Button>
             <Button
               asChild
