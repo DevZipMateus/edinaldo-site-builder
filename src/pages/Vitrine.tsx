@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Header from '@/components/Header';
 
 const Vitrine = () => {
   const [iframeHeight, setIframeHeight] = useState('calc(100vh - 143px)');
+  const badgeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const calculateHeight = () => {
@@ -19,13 +20,23 @@ const Vitrine = () => {
     return () => window.removeEventListener('resize', calculateHeight);
   }, []);
 
+  useEffect(() => {
+    // Carregar o script do badge MonteSite
+    if (badgeRef.current && !document.getElementById('montesite-badge-script')) {
+      const script = document.createElement('script');
+      script.id = 'montesite-badge-script';
+      script.src = 'https://vaabpicspdbolvutnscp.supabase.co/functions/v1/get-footer-iframe';
+      document.body.appendChild(script);
+    }
+  }, []);
+
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen overflow-hidden flex flex-col">
       {/* Header fixo - 80px */}
       <Header />
       
       {/* Iframe - altura dinâmica, começa após o header */}
-      <main className="pt-20" style={{ height: iframeHeight }}>
+      <main className="pt-20 flex-1" style={{ height: iframeHeight }}>
         <iframe
           src="https://es0809468.egestor.com.br/vitrine/"
           style={{
@@ -36,6 +47,9 @@ const Vitrine = () => {
           title="Demonstração de Vitrine"
         />
       </main>
+
+      {/* Badge MonteSite - 63px */}
+      <div ref={badgeRef} id="montesite-footer-badge" className="h-[63px]" />
     </div>
   );
 };
