@@ -1,10 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { ShoppingBag, Eye, Sparkles } from 'lucide-react';
-
 const VitrineCTA = () => {
-  return (
-    <section id="vitrine" className="py-20 bg-gradient-to-br from-primary via-secondary to-accent text-primary-foreground relative overflow-hidden">
+  return <section id="vitrine" className="py-20 bg-gradient-to-br from-primary via-secondary to-accent text-primary-foreground relative overflow-hidden">
       {/* Background decorativo */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-72 h-72 bg-primary-foreground rounded-full blur-3xl" />
@@ -64,30 +62,17 @@ const VitrineCTA = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              asChild
-              size="lg"
-              className="bg-background text-foreground hover:bg-background/90 text-lg px-8 py-6 h-auto shadow-xl"
-            >
+            <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90 text-lg px-8 py-6 h-auto shadow-xl">
               <Link to="/vitrine">
                 Ver vitrine completa
               </Link>
             </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary text-lg px-8 py-6 h-auto"
-            >
-              <a href="https://wa.me/5577988743588" target="_blank" rel="noopener noreferrer">
-                Falar com vendedor
-              </a>
+            <Button asChild size="lg" variant="outline" className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary text-lg px-8 py-6 h-auto">
+              
             </Button>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default VitrineCTA;
