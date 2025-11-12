@@ -20,12 +20,12 @@ const Vitrine = () => {
   }, []);
 
   return (
-    <div className="h-screen overflow-hidden flex flex-col">
+    <div className="h-screen overflow-hidden">
       {/* Header fixo - 80px */}
       <Header />
       
-      {/* Iframe - altura dinâmica */}
-      <main className="flex-1" style={{ height: iframeHeight }}>
+      {/* Iframe - altura dinâmica, começa após o header */}
+      <main className="pt-20" style={{ height: iframeHeight }}>
         <iframe
           src="https://es0809468.egestor.com.br/vitrine/"
           style={{
