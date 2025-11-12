@@ -72,6 +72,13 @@ const Header = () => {
             </Button>
             <Button
               variant="ghost"
+              asChild
+              className="text-foreground hover:text-primary"
+            >
+              <a href="/vitrine">Vitrine</a>
+            </Button>
+            <Button
+              variant="ghost"
               onClick={() => scrollToSection('contato')}
               className="text-foreground hover:text-primary"
             >
@@ -121,6 +128,13 @@ const Header = () => {
                 className="text-foreground hover:text-primary justify-start"
               >
                 Produtos
+              </Button>
+              <Button
+                variant="ghost"
+                asChild
+                className="text-foreground hover:text-primary justify-start"
+              >
+                <a href="/vitrine">Vitrine</a>
               </Button>
               <Button
                 variant="ghost"
