@@ -77,7 +77,7 @@ const VitrineCTA = () => {
               asChild
               size="lg"
               variant="outline"
-              className="border-2 border-primary-foreground/60 text-primary-foreground hover:bg-primary-foreground/10 text-lg px-8 py-6 h-auto"
+              className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary text-lg px-8 py-6 h-auto"
             >
               <a href="https://wa.me/5577988743588" target="_blank" rel="noopener noreferrer">
                 Falar com vendedor
