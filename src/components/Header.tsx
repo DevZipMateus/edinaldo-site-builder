@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import logoNs from '@/assets/logo-ns-moda.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,18 +19,45 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const headerOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+  // Scroll para seção quando há hash na URL
+  useEffect(() => {
+    if (location.hash && isHomePage) {
+      const id = location.hash.replace('#', '');
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          const headerOffset = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-      setIsMobileMenuOpen(false);
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth',
+          });
+        }
+      }, 100);
+    }
+  }, [location.hash, isHomePage]);
+
+  const handleNavigation = (sectionId: string) => {
+    setIsMobileMenuOpen(false);
+    
+    if (isHomePage) {
+      // Se já está na home, apenas faz scroll
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const headerOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
+    } else {
+      // Se está em outra página, navega para home com hash
+      navigate(`/#${sectionId}`);
     }
   };
 
@@ -40,7 +71,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <button
-            onClick={() => scrollToSection('hero')}
+            onClick={() => handleNavigation('hero')}
             className="flex items-center space-x-3 group"
           >
             <img src={logoNs} alt="NS Moda Masculina Logo" className="h-12 w-auto transition-transform group-hover:scale-105" />
@@ -51,21 +82,21 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-1">
             <Button
               variant="ghost"
-              onClick={() => scrollToSection('hero')}
+              onClick={() => handleNavigation('hero')}
               className="text-foreground hover:text-primary"
             >
               Início
             </Button>
             <Button
               variant="ghost"
-              onClick={() => scrollToSection('sobre')}
+              onClick={() => handleNavigation('sobre')}
               className="text-foreground hover:text-primary"
             >
               Sobre
             </Button>
             <Button
               variant="ghost"
-              onClick={() => scrollToSection('produtos')}
+              onClick={() => handleNavigation('produtos')}
               className="text-foreground hover:text-primary"
             >
               Produtos
@@ -75,11 +106,11 @@ const Header = () => {
               asChild
               className="text-foreground hover:text-primary"
             >
-              <a href="/vitrine">Vitrine</a>
+              <Link to="/vitrine">Vitrine</Link>
             </Button>
             <Button
               variant="ghost"
-              onClick={() => scrollToSection('contato')}
+              onClick={() => handleNavigation('contato')}
               className="text-foreground hover:text-primary"
             >
               Contato
@@ -110,21 +141,21 @@ const Header = () => {
             <div className="flex flex-col space-y-2">
               <Button
                 variant="ghost"
-                onClick={() => scrollToSection('hero')}
+                onClick={() => handleNavigation('hero')}
                 className="text-foreground hover:text-primary justify-start"
               >
                 Início
               </Button>
               <Button
                 variant="ghost"
-                onClick={() => scrollToSection('sobre')}
+                onClick={() => handleNavigation('sobre')}
                 className="text-foreground hover:text-primary justify-start"
               >
                 Sobre
               </Button>
               <Button
                 variant="ghost"
-                onClick={() => scrollToSection('produtos')}
+                onClick={() => handleNavigation('produtos')}
                 className="text-foreground hover:text-primary justify-start"
               >
                 Produtos
@@ -134,11 +165,11 @@ const Header = () => {
                 asChild
                 className="text-foreground hover:text-primary justify-start"
               >
-                <a href="/vitrine">Vitrine</a>
+                <Link to="/vitrine" onClick={() => setIsMobileMenuOpen(false)}>Vitrine</Link>
               </Button>
               <Button
                 variant="ghost"
-                onClick={() => scrollToSection('contato')}
+                onClick={() => handleNavigation('contato')}
                 className="text-foreground hover:text-primary justify-start"
               >
                 Contato
