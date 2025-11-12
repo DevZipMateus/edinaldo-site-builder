@@ -15,9 +15,17 @@ const Vitrine = () => {
     // Calcular altura inicial
     calculateHeight();
 
+    // Travar scroll na página
+    document.body.style.overflow = 'hidden';
+
     // Recalcular ao redimensionar
     window.addEventListener('resize', calculateHeight);
-    return () => window.removeEventListener('resize', calculateHeight);
+    
+    return () => {
+      window.removeEventListener('resize', calculateHeight);
+      // Restaurar scroll ao sair da página
+      document.body.style.overflow = '';
+    };
   }, []);
 
   useEffect(() => {
@@ -31,12 +39,12 @@ const Vitrine = () => {
   }, []);
 
   return (
-    <div className="h-screen overflow-hidden flex flex-col">
+    <div className="h-screen w-screen overflow-hidden flex flex-col fixed inset-0">
       {/* Header fixo - 80px */}
       <Header />
       
       {/* Iframe - altura dinâmica, começa após o header */}
-      <main className="pt-20 flex-1" style={{ height: iframeHeight }}>
+      <main className="pt-20 flex-1 overflow-hidden" style={{ height: iframeHeight }}>
         <iframe
           src="https://es0809468.egestor.com.br/vitrine/"
           style={{
@@ -49,7 +57,7 @@ const Vitrine = () => {
       </main>
 
       {/* Badge MonteSite - 63px */}
-      <div ref={badgeRef} id="montesite-footer-badge" className="h-[63px]" />
+      <div ref={badgeRef} id="montesite-footer-badge" className="h-[63px] flex-shrink-0" />
     </div>
   );
 };
